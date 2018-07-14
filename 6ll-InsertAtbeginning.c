@@ -8,15 +8,15 @@ struct node {
     struct node* next;
 };
 
-// first way of modifying the head in main.
-struct node* insert(struct node* head, int inputFromUser) {       // pass the pointer to the node
-                // this head is just a copy from main.
+// second way of modifying the head in main. with pointer.
+void insert(struct node** head, int inputFromUser) {       // receiving pointer to pointer.
+
     struct node* temp = (struct node*)malloc(sizeof(struct node));
     (*temp).data = inputFromUser;
-    temp->next = head;
-    head = temp;
 
-    return head;        // returning head.
+    // to get head from main, dereferencing is needed. pointer to head.
+    temp->next = *head;
+    *head = temp;
 }
 
 void print(struct node* head) {
@@ -44,7 +44,7 @@ int main() {
         printf("\nEnter number: ");
         scanf("%d", &inputFromUser);
 
-        head = insert(head, inputFromUser);     // collecting the return in the head again. so head is now modified.
+        insert(&head, inputFromUser);     // passing the variable head by reference(&).
         print(head);
     }
 }
