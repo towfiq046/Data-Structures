@@ -8,43 +8,33 @@ struct node {
     struct node* next;
 };
 
-struct node* head;   // global variable. // head is an indication of the first node.
+// first way of modifying the head in main.
+struct node* insert(struct node* head, int inputFromUser) {       // pass the pointer to the node
+                // this head is just a copy from main.
+    struct node* temp = (struct node*)malloc(sizeof(struct node));
+    (*temp).data = inputFromUser;
+    temp->next = head;
+    head = temp;
 
-void insert(int inputFromUser) {
-
-    // creating a node.
-    struct node* temp = (struct node*)malloc(sizeof(struct node));    // variable temp, pointer to node. // storing the address of node in temp.
-    // dereferencing (*temp) for accessing the fields (in this case data part) of the node.
-
-    (*temp).data = inputFromUser;   // or-- temp->data = inputFromUser;
-    // dereferencing the pointer variable (temp) to modify the node.
-    // inputFromUser is in data part with the help of (dereferencing) *temp.
-
-    // temp->next = NULL;    // nothing in next. // only getting used when list is empty. obviously head is already null.
-
-    //if(head != NULL)        // no need for the condition.
-
-    temp->next = head;      // so simply write next is head. so list is empty.
-
-    head = temp;    // head has the address of the 'first' node.
+    return head;        // returning head.
 }
 
-void print() {
-    struct node* temp = head;   // this global variable (head) has the address of the head node.
-                                 // head is not for modification. if so we will lose the address of head.
+void print(struct node* head) {
+
+    // no need for temp. since head is now local.
     printf("list is: ");
 
-    while(temp != NULL) {       // traversing from the head node, since temp has the head address.
+    while(head != NULL) {       // traversing from the head node, since temp has the head address.
 
-        printf(" %d", temp->data);
-        temp = temp->next;    // keep going to the next node.
+        printf(" %d", head->data);
+        head = head->next;    // keep going to the next node.
     }
     printf("\n");
 }
 
 int main() {
 
-    head = NULL;        // empty list.
+    struct node* head = NULL;        // empty list.
     printf("How many elements? ");
 
     int n, i, inputFromUser;
@@ -54,8 +44,8 @@ int main() {
         printf("\nEnter number: ");
         scanf("%d", &inputFromUser);
 
-        insert(inputFromUser);
-        print();
+        head = insert(head, inputFromUser);     // collecting the return in the head again. so head is now modified.
+        print(head);
     }
 }
 
