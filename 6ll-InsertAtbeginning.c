@@ -13,7 +13,7 @@ struct node* head;   // global variable. // head is an indication of the first n
 void insert(int inputFromUser) {
 
     // creating a node.
-    node* temp = (node*)malloc(sizeof(struct node));    // variable temp, pointer to node. // storing the address of node in temp.
+    struct node* temp = (struct node*)malloc(sizeof(struct node));    // variable temp, pointer to node. // storing the address of node in temp.
     // dereferencing (*temp) for accessing the fields (in this case data part) of the node.
 
     (*temp).data = inputFromUser;   // or-- temp->data = inputFromUser;
@@ -29,6 +29,19 @@ void insert(int inputFromUser) {
     head = temp;    // head has the address of the 'first' node.
 }
 
+void print() {
+    struct node* temp = head;   // this global variable (head) has the address of the head node.
+                                 // head is not for modification. if so we will lose the address of head.
+    printf("list is: ");
+
+    while(temp != NULL) {       // traversing from the head node, since temp has the head address.
+
+        printf(" %d", temp->data);
+        temp = temp->next;    // keep going to the next node.
+    }
+    printf("\n");
+}
+
 int main() {
 
     head = NULL;        // empty list.
@@ -38,7 +51,7 @@ int main() {
     scanf("%d", &n);
 
     for(i = 0; i < n; i++) {
-        printf("Enter number: ");
+        printf("\nEnter number: ");
         scanf("%d", &inputFromUser);
 
         insert(inputFromUser);
