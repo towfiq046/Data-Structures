@@ -20,10 +20,11 @@ void insert(int inputFromUser) {
     // dereferencing the pointer variable (temp) to modify the node.
     // inputFromUser is in data part with the help of (dereferencing) *temp.
 
-    temp->next = NULL;    //  nothing in next.
+    // temp->next = NULL;    // nothing in next. // only getting used when list is empty. obviously head is already null.
 
-    if(head != NULL)
-        temp->next = head;      // head is now next element. then--
+    //if(head != NULL)        // no need for the condition.
+
+    temp->next = head;      // so simply write next is head. so list is empty.
 
     head = temp;    // head has the address of the 'first' node.
 }
